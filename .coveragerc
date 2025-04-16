@@ -1,0 +1,12 @@
+[report]
+omit =
+    */__init__.py
+    */apps.py
+    */wsgi.py
+    */asgi.py
+    */manage.py
+    */migrations/*
+    */tests.py
+    */settings.py
+
+
