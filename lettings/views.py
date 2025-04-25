@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from sentry_sdk import capture_exception
 
 from lettings.models import Letting
 
@@ -9,7 +10,11 @@ def index(request):
     :param request: The HTTP request
     :return: A rendered HTML page displaying the list of all available Lettings.
     """
-    lettings_list = Letting.objects.all()
+    try:
+        lettings_list = Letting.objects.all()
+    except Exception as e:
+        capture_exception(e)
+        raise e
     context = {'lettings_list': lettings_list}
     return render(request, 'lettings/index.html', context)
 

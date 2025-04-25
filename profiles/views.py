@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from sentry_sdk import capture_exception
 
 from profiles.models import Profile
 
@@ -9,7 +10,11 @@ def index(request):
     :param request: The HTTP request
     :return: A rendered HTML page displaying a list of all users profiles.
     """
-    profiles_list = Profile.objects.all()
+    try:
+        profiles_list = Profile.objects.all()
+    except Exception as e:
+        capture_exception(e)
+        raise e
     context = {'profiles_list': profiles_list}
     return render(request, 'profiles/index.html', context)
 

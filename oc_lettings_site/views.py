@@ -1,4 +1,9 @@
+import logging
+
 from django.shortcuts import render
+from sentry_sdk import capture_message
+
+logger = logging.getLogger(__name__)
 
 
 def index(request):
@@ -8,3 +13,16 @@ def index(request):
     :return: A rendered HTML page displaying the home page.
     """
     return render(request, 'index.html')
+
+
+def custom_404(request, exception=None):
+    logger.warning(f"Custom 404: {request.path} - User: {request.user}")
+    capture_message('Page not found (404)', level='info')
+    return render(request, '404.html', status=404)
+
+
+def custom_500(request, exception=None):
+    logger.error(f"Custom 500: {request.path} - User: {request.user}",
+                 extra={'request': request})
+    capture_message('Internal server error (500)', level='error')
+    return render(request, '500.html', status=500)
