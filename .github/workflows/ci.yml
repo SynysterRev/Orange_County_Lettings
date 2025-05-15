@@ -50,10 +50,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Get commit hash
+        id: commit
+        uses: prompt/actions-commit-hash@v3
           
-       - name Build and push
-         uses: docker/build-push-action@v5
-         with:
-           context:
-           push: true
-           tags: ${{ steps.commit.outputs.short }}
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            synyt/orange-county-lettings:${{ steps.commit.outputs.short }}
+            synyt/orange-county-lettings:latest
