@@ -3,8 +3,6 @@ from .base import *  # noqa: F401, F403
 # Désactivation des paramètres de sécurité pour les tests
 DEBUG = True
 
-SECRET_KEY = 'test_secret_key'
-
 # Désactivation des redirections SSL pour les tests
 SECURE_SSL_REDIRECT = False
 CSRF_COOKIE_SECURE = False
