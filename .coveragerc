@@ -1,12 +1,27 @@
-[report]
+[run]
+source =
+    lettings
+    profiles
+    oc_lettings_site
+
 omit =
-    */__init__.py
-    */apps.py
-    */wsgi.py
-    */asgi.py
-    */manage.py
     */migrations/*
-    */tests.py
-    */settings.py
+    */tests/*
+    */settings/*
+    */apps.py
+    manage.py
+    conftest.py
+    */__init__.py
+    */asgi.py
+    */wsgi.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
+    raise ImportError
 
 
