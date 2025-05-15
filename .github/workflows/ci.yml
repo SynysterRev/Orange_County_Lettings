@@ -29,7 +29,7 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests with Coverage
       env:
-        DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         DJANGO_SETTINGS_MODULE: oc_lettings_site.settings.test
       run: |
