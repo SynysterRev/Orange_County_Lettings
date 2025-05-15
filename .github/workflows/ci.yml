@@ -31,7 +31,7 @@ jobs:
       env:
         DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
         SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-        DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+        DJANGO_SETTINGS_MODULE: oc_lettings_site.settings.test
       run: |
         pytest --cov=. --cov-fail-under=80
     - name: Linting with Flake
