@@ -61,5 +61,5 @@ jobs:
           context: .
           push: true
           tags: |
-            synyt/orange-county-lettings:${{ steps.commit.outputs.short }}
-            synyt/orange-county-lettings:latest
+            synyst/orange-county-lettings:${{ steps.commit.outputs.short }}
+            synyst/orange-county-lettings:latest
