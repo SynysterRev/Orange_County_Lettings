@@ -28,6 +28,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests with Coverage
+      env:
+        DJANGO_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+        DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
       run: |
         pytest --cov=. --cov-fail-under=80
     - name: Linting with Flake
