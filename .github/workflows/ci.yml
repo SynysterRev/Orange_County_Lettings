@@ -63,3 +63,5 @@ jobs:
           tags: |
             synyst/orange-county-lettings:${{ steps.commit.outputs.short }}
             synyst/orange-county-lettings:latest
+          build-args: |
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
