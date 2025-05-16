@@ -98,10 +98,17 @@ Pour que tout cela fonctionne il faudra remplir les secrets suivants sur votre g
 - SECRET_KEY (pour le projet Django)
 - SENTRY_DSN
 
-## Docker
-Récupérer la dernière image avec `docker pull yourusername/orange-county-lettings:latest`
+#### Makefile
+Toutes les actions précédentes peuvent être réalisées en local grâce au Makefile:
+- make build user=`yourusername` -> build une image avec le tag latest
+- make push user=`yourusername` -> push l'image créée
+- make run user=`yourusername` -> run l'image créée
+- make full user=`yourusername` -> exécute toutes les actions précédentes
 
 `yourusername` correspond à votre nom d'utilisateur sur dockerhub
+
+## Docker
+Récupérer la dernière image avec `docker pull yourusername/orange-county-lettings:latest`
 
 #### Test en local
 - dans votre .env local, utiliser `DJANGO_SETTINGS_MODULE=oc_lettings_site.settings.base`
