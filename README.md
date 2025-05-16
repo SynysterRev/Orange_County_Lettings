@@ -36,7 +36,7 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 - `cd /path/to/Python-OC-Lettings-FR`
 - `source venv/bin/activate`
-- `pip install --requirement requirements.txt`
+- `pip install --requirements requirements.txt`
 - `python manage.py runserver`
 - Aller sur `http://localhost:8000` dans un navigateur.
 - Confirmer que le site fonctionne et qu'il est possible de naviguer (vous devriez voir plusieurs profils et locations).
@@ -75,3 +75,35 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+### Configuration
+
+> ⚠️ **ATTENTION** : n'oubliez pas de remplir votre fichier `.env` avant de lancer l'application !
+>
+> Copiez `.env.example` en `.env` puis modifiez-le avec vos valeurs.
+
+## Github Actions
+Lors d'un push sur la branche master (ou tout autre branche) :
+- les tests unitaires seront lancés pour voir si tout fonctionne et que la couverture atteint au minimum 80%.
+- le linting sera lancé pour voir si le code correspond aux normes
+Si une de ces actions échoue les suivantes (celles si ne s'appliquent que pour la branche master) ne s'exécuteront pas.
+- créer d'une image docker
+- tag cette image avec le hash du commit ainsi que latest
+- push de l'image sur dockerhub
+
+Pour que tout cela fonctionne il faudra remplir les secrets suivants sur votre github:
+- DJANGO_SETTINGS_MODULE
+- DOCKERHUB_TOKEN (le token permettant d'effectuer les [actions nécessaires](https://docs.docker.com/security/for-developers/access-tokens/) sur votre compte)
+- DOCKERHUB_USERNAME (votre nom utilisateur sur dockerhub)
+- SECRET_KEY (pour le projet Django)
+- SENTRY_DSN
+
+## Docker
+Récupérer la dernière image avec `docker pull yourusername/orange-county-lettings:latest`
+
+`yourusername` correspond à votre nom d'utilisateur sur dockerhub
+
+#### Test en local
+- dans votre .env local, utiliser `DJANGO_SETTINGS_MODULE=oc_lettings_site.settings.base`
+- utiliser la commande `docker run --env-file .env -p 8000:8000 yourusername/orange-county-lettings:latest` dans le répertoire où se trouve votre .env
+- aller sur `http://localhost:8000`
