@@ -61,7 +61,7 @@ jobs:
           context: .
           push: true
           tags: |
-            synyst/orange-county-lettings:${{ steps.commit.outputs.short }}
-            synyst/orange-county-lettings:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:${{ steps.commit.outputs.short }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:latest
           build-args: |
             SECRET_KEY=${{ secrets.SECRET_KEY }}
