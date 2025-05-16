@@ -5,7 +5,7 @@ build:
 	docker build --build-arg SECRET_KEY="$$(SECRET_KEY)" -t ${user}/orange-county-lettings:latest .
 	
 push:
-	docker push ${user}/orange-county-lettings
+	docker push ${user}/orange-county-lettings:latest
 	
 run: 
 	docker run --env-file .env -p 8000:8000 ${user}/orange-county-lettings:latest
