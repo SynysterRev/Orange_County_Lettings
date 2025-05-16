@@ -64,5 +64,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:${{ steps.commit.outputs.short }}
             ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:latest
-          build-args: |
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
