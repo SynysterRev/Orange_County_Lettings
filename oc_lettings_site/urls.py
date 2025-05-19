@@ -6,7 +6,7 @@ import profiles.views
 from . import views
 
 
-def test(request):
+def test_error_500(request):
     raise Exception('test')
 
 
@@ -15,7 +15,7 @@ handler500 = 'oc_lettings_site.views.custom_500'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('error/', test, name='error'),
+    path('error/', test_error_500, name='error'),
     path('lettings/', lettings.views.index, name='lettings_index'),
     path('lettings/<int:letting_id>/', lettings.views.letting, name='letting'),
     path('profiles/', profiles.views.index, name='profiles_index'),
