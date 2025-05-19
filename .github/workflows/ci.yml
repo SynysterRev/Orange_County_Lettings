@@ -2,7 +2,7 @@ name: Django CI
 
 on:
   push:
-    branches: 
+    branches:
       - "**"
   pull_request:
     branches:
@@ -15,29 +15,29 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.12]
+        python-version: [ 3.12 ]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests with Coverage
-      env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-        DJANGO_SETTINGS_MODULE: oc_lettings_site.settings.test
-      run: |
-        pytest --cov=. --cov-fail-under=80
-    - name: Linting with Flake8
-      run: |     
-        flake8
-        
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Tests with Coverage
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          DJANGO_SETTINGS_MODULE: oc_lettings_site.settings.test
+        run: |
+          pytest --cov=. --cov-fail-under=80
+      - name: Linting with Flake8
+        run: |
+          flake8
+
   docker:
     runs-on: ubuntu-latest
     needs: build-and-test
@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
-      
+
       - name: Login to dockerhub
         uses: docker/login-action@v3
         with:
@@ -55,7 +55,7 @@ jobs:
       - name: Get commit hash
         id: commit
         uses: prompt/actions-commit-hash@v3
-          
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
@@ -70,13 +70,11 @@ jobs:
     needs: docker
     if: github.ref == 'refs/heads/master'
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Deploy to Render
-        uses: JorgeLNJunior/render-deploy@v1.4.5
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
         with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          wait_deploy: true
+          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          image-url: ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:latest
+          render-api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-deployment: true
 
