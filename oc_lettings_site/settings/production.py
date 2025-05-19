@@ -16,8 +16,3 @@ SECURE_HSTS_PRELOAD = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 CSRF_TRUSTED_ORIGINS = ['https://orange-county-lettings-5vld.onrender.com']
-
-sentry_sdk.init(
-    dsn=os.getenv('SENTRY_DSN'),
-    send_default_pii=True,
-)
