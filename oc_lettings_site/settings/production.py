@@ -3,7 +3,9 @@ from .base import *  # noqa: F401, F403
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://orange-county-lettings-5vld.onrender.com/"]
+ALLOWED_HOSTS = ["orange-county-lettings-5vld.onrender.com"]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
