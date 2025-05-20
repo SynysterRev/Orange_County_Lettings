@@ -74,7 +74,7 @@ jobs:
         uses: gh-actions-workflows/deploy-docker-render@v1.1
         with:
           deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
-          image-url: ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:latest
+          image-url: ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:${{ steps.commit.outputs.short }}
           render-api-key: ${{ secrets.RENDER_API_KEY }}
           wait-for-deployment: true
 
