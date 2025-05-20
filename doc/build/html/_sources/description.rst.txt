@@ -8,3 +8,4 @@ L'objectif de ce projet est de faire évoluer le site web existant:
 - refonte de l'architecture modulaire
 - ajout d'une pipeline CI/CD avec GitHub Actions
 - déploiement via Render
+- gestions des erreurs et journalisation des logs avec Sentry

@@ -18,4 +18,6 @@ documentation for details.
    description
    installation
    quickstart
+   technologies
+
 
