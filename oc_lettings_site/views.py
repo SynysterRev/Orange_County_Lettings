@@ -16,7 +16,6 @@ def index(request):
 
 
 def custom_404(request, exception=None):
-    print("cc")
     logger.warning(f"Custom 404: {request.path} - User: {request.user}")
     capture_exception(exception)
     return render(request, '404.html', status=404)
