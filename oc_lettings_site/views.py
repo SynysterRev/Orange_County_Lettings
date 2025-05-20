@@ -16,12 +16,24 @@ def index(request):
 
 
 def custom_404(request, exception=None):
+    """
+    Display a custom page for error 404
+    :param request: The HTTP request
+    :param exception: The exception that caused the 404 error (optional).
+    :return:
+    """
     logger.warning(f"Custom 404: {request.path} - User: {request.user}")
     capture_exception(exception)
     return render(request, '404.html', status=404)
 
 
 def custom_500(request, exception=None):
+    """
+    Display a custom page for error 500
+    :param request: The HTTP request
+    :param exception: The exception that caused the server error (optional).
+    :return:
+    """
     logger.error(f"Custom 500: {request.path} - User: {request.user}",
                  extra={'request': request})
     capture_exception(exception)
