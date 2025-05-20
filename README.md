@@ -82,6 +82,9 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 >
 > Copiez `.env.example` en `.env` puis modifiez-le avec vos valeurs.
 
+## Sentry
+Pour utiliser Sentry, il faut créer un compte [Sentry](https://sentry.io/). Ensuite, créer un nouveau projet et sélectionner: Django. Suivre le guide de configuration et chercher la ligne contenant : `dsn="https://your-key@sentry.io/your-project-id"` qu'il faudra renseigner dans le `.env`.
+
 ## Github Actions
 Lors d'un push sur la branche master (ou tout autre branche) :
 - les tests unitaires seront lancés pour voir si tout fonctionne et que la couverture atteint au minimum 80%.
@@ -90,13 +93,15 @@ Si une de ces actions échoue les suivantes (celles si ne s'appliquent que pour 
 - créer d'une image docker
 - tag cette image avec le hash du commit ainsi que latest
 - push de l'image sur dockerhub
+- récupération de cette image et envoie sur Render pour le déploiement
 
 Pour que tout cela fonctionne il faudra remplir les secrets suivants sur votre github:
-- DJANGO_SETTINGS_MODULE
 - DOCKERHUB_TOKEN (le token permettant d'effectuer les [actions nécessaires](https://docs.docker.com/security/for-developers/access-tokens/) sur votre compte)
 - DOCKERHUB_USERNAME (votre nom utilisateur sur dockerhub)
 - SECRET_KEY (pour le projet Django)
 - SENTRY_DSN
+- RENDER_DEPLOY_HOOK (que vous pouvez trouver dans les settings de votre dashboard)
+- RENDER_API_KEY (dans les settings de votre compte Render)
 
 #### Makefile
 Toutes les actions précédentes peuvent être réalisées en local grâce au Makefile:
@@ -114,3 +119,15 @@ Récupérer la dernière image avec `docker pull yourusername/orange-county-lett
 - dans votre .env local, utiliser `DJANGO_SETTINGS_MODULE=oc_lettings_site.settings.base`
 - utiliser la commande `docker run --env-file .env -p 8000:8000 yourusername/orange-county-lettings:latest` dans le répertoire où se trouve votre .env
 - aller sur `http://localhost:8000`
+
+Vous pouvez également utiliser `docker run --env-file .env -p 8000:8000 -v "$(pwd):/app" yourusername/orange-county-lettings:latest` afin de pouvoir voir les modifications sur le code en temps réel.
+
+## Render
+- Créez-vous un compte sur [Render](https://render.com/)
+- Créer un nouveau WebService, sélectionner depuis une image Docker et renseigner le lien vers celle-ci
+- Rendez-vous dans "Manage/Environment" et ajouter les variables DJANGO_SETTINGS_MODULE (oc_lettings_site.settings.production), SECRET_KEY et SENTRY_DSN
+
+## Déploiement
+Lorsque les tests et le lintings sont validés et que la dockeurisation s'est déroulée avec succès l'image créée est récupérée et envoyé sur Render, lequel s'occupera de récupérer l'image et de la déployer en mode production.
+
+Il est également possible de redéployer l'image depuis le dashbord Render en cliquant sur le bouton `Manual Deploy`.
