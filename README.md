@@ -87,15 +87,15 @@ Pour utiliser Sentry, il faut créer un compte [Sentry](https://sentry.io/). Ens
 
 ## Github Actions
 Lors d'un push sur la branche master (ou tout autre branche) :
-- les tests unitaires seront lancés pour voir si tout fonctionne et que la couverture atteint au minimum 80%.
-- le linting sera lancé pour voir si le code correspond aux normes
-Si une de ces actions échoue les suivantes (celles si ne s'appliquent que pour la branche master) ne s'exécuteront pas.
-- créer d'une image docker
-- tag cette image avec le hash du commit ainsi que latest
+- les tests unitaires seront lancés pour vérifier que tout fonctionne et que la couverture atteint au minimum 80 %.
+- le linting sera exécuté pour s'assurer que le code respecte les normes.
+Si l’une de ces actions échoue, les suivantes (celles-ci ne s’appliquent qu’à la branche master) ne seront pas exécutées.
+- création d'une image docker
+- l'image est taguée avec le hash du commit ainsi qu’avec latest
 - push de l'image sur dockerhub
 - récupération de cette image et envoie sur Render pour le déploiement
 
-Pour que tout cela fonctionne il faudra remplir les secrets suivants sur votre github:
+Pour que tout cela fonctionne, vous devrez renseigner les secrets suivants dans votre dépôt github:
 - DOCKERHUB_TOKEN (le token permettant d'effectuer les [actions nécessaires](https://docs.docker.com/security/for-developers/access-tokens/) sur votre compte)
 - DOCKERHUB_USERNAME (votre nom utilisateur sur dockerhub)
 - SECRET_KEY (pour le projet Django)
@@ -124,10 +124,10 @@ Vous pouvez également utiliser `docker run --env-file .env -p 8000:8000 -v "$(p
 
 ## Render
 - Créez-vous un compte sur [Render](https://render.com/)
-- Créer un nouveau WebService, sélectionner depuis une image Docker et renseigner le lien vers celle-ci
+- Créez un nouveau WebService, sélectionner depuis une image Docker et renseigner le lien vers celle-ci
 - Rendez-vous dans "Manage/Environment" et ajouter les variables DJANGO_SETTINGS_MODULE (oc_lettings_site.settings.production), SECRET_KEY et SENTRY_DSN
 
 ## Déploiement
-Lorsque les tests et le lintings sont validés et que la dockeurisation s'est déroulée avec succès l'image créée est récupérée et envoyé sur Render, lequel s'occupera de récupérer l'image et de la déployer en mode production.
+Lorsque les tests et le lintings sont validés et que la dockerisation s'est déroulée avec succès l'image créée est récupérée et envoyé sur Render, il se chargera alors de récupérer l’image et de la déployer en mode production.
 
-Il est également possible de redéployer l'image depuis le dashbord Render en cliquant sur le bouton `Manual Deploy`.
+Il est également possible de redéployer l'image depuis le dashboard Render en cliquant sur le bouton `Manual Deploy`.
