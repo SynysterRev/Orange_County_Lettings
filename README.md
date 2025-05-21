@@ -2,6 +2,9 @@
 
 Site web d'Orange County Lettings
 
+Pour une documentation plus détaillée
+[ReadTheDocs](https://docholidayhomes.readthedocs.io/fr/latest/)
+
 ## Installation
 
 ### Clonage du dépôt
