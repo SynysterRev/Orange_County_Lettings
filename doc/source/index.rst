@@ -19,5 +19,9 @@ documentation for details.
    installation
    quickstart
    technologies
+   database
+   interfaces
+   utilisation
+   deployment
 
 

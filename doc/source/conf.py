@@ -1,3 +1,6 @@
+import os
+import sys
+import django
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -13,7 +16,9 @@ author = 'Michaël Arnaud'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -25,3 +30,7 @@ language = 'fr'
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+sys.path.insert(0, os.path.abspath('../..'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oc_lettings_site.settings.base")
+django.setup()
