@@ -29,7 +29,6 @@ class Address(models.Model):
                                         validators=[MinLengthValidator(3)])
 
     class Meta:
-        db_table = "oc_lettings_site_address"
         verbose_name_plural = "Addresses"
 
     def __str__(self):
@@ -51,9 +50,6 @@ class Letting(models.Model):
 
     title = models.CharField(max_length=256)
     address = models.OneToOneField(Address, on_delete=models.CASCADE)
-
-    class Meta:
-        db_table = "oc_lettings_site_letting"
 
     def __str__(self):
         return self.title
