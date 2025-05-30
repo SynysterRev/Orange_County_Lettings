@@ -22,10 +22,10 @@ Clonez le dépôt de code avec la commande ```git clone https://github.com/Synys
 ### Activation de l'environnement virtuel
 
 #### Windows
-```env\Scripts\activate```
+```.\venv\Scripts\activate```
 
 #### MacOS ou Linux
-```source env/bin/activate```
+```source venv/bin/activate```
 
 ### Installation des dépendances
 ```pip install -r requirements.txt```
