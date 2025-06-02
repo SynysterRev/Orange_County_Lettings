@@ -34,9 +34,6 @@ jobs:
           DJANGO_SETTINGS_MODULE: oc_lettings_site.settings.test
         run: |
           pytest --cov=. --cov-fail-under=80
-      - name: Linting with Flake8
-        run: |
-          flake8
 
   build-and-linting:
 
