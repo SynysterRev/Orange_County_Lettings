@@ -113,8 +113,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:${{ steps.commit.outputs.short }}
             ${{ secrets.DOCKERHUB_USERNAME }}/orange-county-lettings:latest
-          build-args: |
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
 
   deploy:
     runs-on: ubuntu-latest
