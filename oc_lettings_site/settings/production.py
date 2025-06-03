@@ -1,4 +1,5 @@
 from .base import *  # noqa: F401, F403
+import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -18,3 +19,9 @@ SECURE_HSTS_PRELOAD = True
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 CSRF_TRUSTED_ORIGINS = ['https://orange-county-lettings-l543.onrender.com']
+
+DATABASES = {
+    'default': dj_database_url.config(
+        conn_max_age=600
+    )
+}
