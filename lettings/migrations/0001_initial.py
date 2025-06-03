@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('oc_lettings_site', '0003_cleanup_and_rename_tables'),
     ]
 
     operations = [

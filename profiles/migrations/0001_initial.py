@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('oc_lettings_site', '0003_cleanup_and_rename_tables'),
     ]
 
     operations = [
