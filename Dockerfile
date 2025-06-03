@@ -2,8 +2,6 @@ FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
 
 RUN mkdir /app
 
@@ -19,8 +17,6 @@ COPY . /app/
 
 RUN python manage.py collectstatic --noinput
 
-RUN python manage.py migrate --noinput
-
 EXPOSE 8000
 
-CMD ["gunicorn", "oc_lettings_site.wsgi:application", "--bind", "0.0.0.0:8000"]
+ENTRYPOINT ["/app/entrypoint.sh"]
