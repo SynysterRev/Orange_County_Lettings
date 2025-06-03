@@ -89,7 +89,7 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
-    needs: [ build-and-test, build-and-linting ]
+    needs: [ build-and-test, build-and-linting, check-migrations ]
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Check out repo
