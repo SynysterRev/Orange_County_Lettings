@@ -22,6 +22,10 @@ CSRF_TRUSTED_ORIGINS = ['https://orange-county-lettings-l543.onrender.com']
 
 DATABASES = {
     'default': dj_database_url.config(
-        conn_max_age=600
+        conn_max_age=600,
+        default={
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'oc-lettings-site.sqlite3'),
+        }
     )
 }
