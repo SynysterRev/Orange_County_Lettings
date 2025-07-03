@@ -22,12 +22,17 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 CSRF_TRUSTED_ORIGINS = ['https://orange-county-lettings-l543.onrender.com']
 
-DATABASES = {
-    'default': dj_database_url.config(
-        conn_max_age=600,
-        default={
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600
+        )
+    }
+else:
+    DATABASES = {
+        'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'oc-lettings-site.sqlite3'),
         }
-    )
-}
+    }
